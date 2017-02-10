@@ -33,18 +33,29 @@ class File
     /**
      * @var string
      *
-     * @ORM\Column(name="hash_file", type="string", length=100)
-     * @Assert\NotBlank(message="Please, select file")
-     * @Assert\File(maxSize="100M")
+     * @ORM\Column(name="hash_file", type="string", length=255)
      */
     private $hashFile;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="hash_email", type="string", length=100)
+     * @ORM\Column(name="hash_email", type="string", length=255)
      */
     private $hashEmail;
+
+    /**
+     * @var string
+     *
+     * @Assert\NotBlank(message="Please, select file")
+     * @Assert\File(maxSize="100M")
+     */
+    private $file;
+
+    /**
+     * @var string
+     */
+    private $email;
 
     /**
      * Get id
@@ -126,6 +137,26 @@ class File
     public function getHashEmail()
     {
         return $this->hashEmail;
+    }
+
+    function getFile()
+    {
+        return $this->file;
+    }
+
+    function setFile($file)
+    {
+        $this->file = $file;
+    }
+
+    function getEmail()
+    {
+        return $this->email;
+    }
+
+    function setEmail($email)
+    {
+        $this->email = $email;
     }
 
 }

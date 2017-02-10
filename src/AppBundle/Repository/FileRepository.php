@@ -10,4 +10,21 @@ namespace AppBundle\Repository;
  */
 class FileRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    /**
+     * Find last 5000 files 
+     *
+     * @return array | File[]
+     */
+    public function findAllFiles()
+    {
+        return $this->_em->createQueryBuilder()
+                        ->select('f')
+                        ->from('AppBundle:File', 'f')
+                        ->orderBy('f.id', 'DESC')
+                        ->setMaxResults(5000)
+                        ->getQuery()
+                        ->getResult();
+    }
+
 }

@@ -1,3 +1,4 @@
 $(document).ready(function () {
-    $("#upload").uploadprogress({redirect_url: '/send'});
+    $('#example').DataTable();
+    $("#upload").uploadprogress({redirect_url: '/result'});
 });

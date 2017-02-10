@@ -1,21 +1,3 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
-
-#send:
-#    path: /send
-#    defaults:
-#        resource: "@AppBundle/Controller/DefaultController.php"
-#        type:     annotation
-
-#
-#homepage:
-#    path: /
-#    defaults:
-#        _controller: FrameworkBundle:Template:template
-#        template:    default/index.html.twig
-        
-#send:
-#    path: /send
-#    defaults:
-#        _controller: AppBundle::sendAction

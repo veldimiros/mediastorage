@@ -3,14 +3,20 @@
 {% block body %}
     <div id="wrapper">
         <div id="container">
+            <p>  
+                <a href="{{ path('admin') }}"  class="btn btn-default" >Admin panel</a>
+            </p>
 
             {{ form_start(form, {'attr': {'id': 'upload'}}) }}
-            {{ form_row(form.info, { 'label': ' ' }) }}
-            {{ form_row(form.hashFile, { 'label': 'Load' }) }}
-            {{ form_row(form.hashEmail, { 'label': 'Email' }) }}
-            <input type="submit" value="Submit" class="btn btn-primary"/>
+            {{ form_row(form.info) }}
+            {{ form_row(form.file, { 'label': 'Load' ,  'attr': {'class': 'btn btn-default btn-file'}} ) }}
+            {{ form_row(form.email) }}
+
+            <p>  
+                <input type="submit" value="Submit" class="btn btn-primary"/>
+            </p>
             {{ form_end(form) }} 
+
         </div>
     </div>
-
 {% endblock %}
