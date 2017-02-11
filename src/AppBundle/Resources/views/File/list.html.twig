@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <p class="h1">Uploads list</p>
+            {# total items count #}
+            <p class="label label-info"> Total: {{ pagination.getTotalItemCount }}
+            </p>
+
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>{{ knp_pagination_sortable(pagination, 'Id', 'f.id') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'Info', 'f.info') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'File', 'f.hashFile') }}</th>
+                    <th>Actions</th>
+                </tr>
+
+                {% for file in pagination %}
+                    <tr {% if loop.index is odd %}class="color"{% endif %}>
+                        <td>{{ file.id }}</td>
+                        <td>{{ file.info }}</td>
+                        <td>{{ file.hashFile }}</td>
+                        <td>
+                            <a href="{{ path('file_edit', { 'id': file.id }) }}">edit</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            {# display navigation #}
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

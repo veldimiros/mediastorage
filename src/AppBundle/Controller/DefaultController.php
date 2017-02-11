@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class DefaultController extends Controller
 {
@@ -72,33 +73,37 @@ class DefaultController extends Controller
     /**
      * List of all files.
      *
-     * @Route("/admin", name="admin")
-     * @Method("GET")
+     * @Route("/list", name="list")
      */
-    public function adminAction()
+    public function listAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-           $files = $em->getRepository('AppBundle:File')->findAllFiles();
-//        $files = $em->getRepository('AppBundle:File')->findAll();
+        $em = $this->get('doctrine.orm.entity_manager');
+        $dql = "SELECT f FROM AppBundle:File f";
+        $query = $em->createQuery($dql);
 
-        return $this->render('AppBundle:File:files.html.twig', array(
-                    'files' => $files,
-        ));
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+                $query, $request->query->getInt('page', 1)/* page number */, 10/* limit per page */
+        );
+
+        return $this->render('AppBundle:File:list.html.twig', array('pagination' => $pagination));
     }
 
     /**
      * Displays a form to edit an existing file entity.
      *
-     * @Route("/admin/{id}", name="file_edit")
+     * @Route("/list/{id}", name="file_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, File $file)
     {
         $deleteForm = $this->createDeleteForm($file);
-        $editForm = $this->createForm('AppBundle\Form\AdminFileType', $file);
+        $editForm = $this->createEditForm($file->getInfo());
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted()) {
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $data = $editForm->getData();
+            $file->setInfo($data['info']);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('file_edit', array('id' => $file->getId()));
@@ -135,7 +140,7 @@ class DefaultController extends Controller
             }
         }
 
-        return $this->redirectToRoute('admin');
+        return $this->redirectToRoute('list');
     }
 
     /**
@@ -174,6 +179,23 @@ class DefaultController extends Controller
         ;
 
         $this->get('mailer')->send($message);
+    }
+
+    /**
+     * Form for edit info file
+     */
+    private function createEditForm($info)
+    {
+        return $this->createFormBuilder()
+                        ->add('info', TextareaType::class, [
+                            'data' => $info,
+                            'attr' => [
+                                'autofocus' => true,
+                                'maxlength' => 150,
+                                'style' => 'resize: none'
+                            ]
+                        ])
+                        ->getForm();
     }
 
 }

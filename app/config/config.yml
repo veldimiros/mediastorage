@@ -89,9 +89,20 @@ bazinga_faker:
     orm: doctrine
     entities:
         AppBundle\Entity\File:
-            number: 10000
+            number: 100000
             custom_formatters:
                  info:   { method: catchPhrase }
                  hashEmail: { method: regexify, parameters: [ '[a-z0-9]{32}' ] }
                  hashFile: { method: regexify, parameters: [ '[a-z0-9]{32}' ] }
-        
+
+# KnpPaginator Configuration
+knp_paginator:
+    page_range: 5                      # default page range used in pagination control
+    default_options:
+        page_name: page                # page query parameter name
+        sort_field_name: sort          # sort field query parameter name
+        sort_direction_name: direction # sort direction query parameter name
+        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        pagination: KnpPaginatorBundle:Pagination:foundation_v5_pagination.html.twig    # sliding pagination controls template
+        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
