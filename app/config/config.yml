@@ -89,9 +89,9 @@ bazinga_faker:
     orm: doctrine
     entities:
         AppBundle\Entity\File:
-            number: 100000
+            number: 150000
             custom_formatters:
-                 info:   { method: catchPhrase }
+                 info:   { method: city }
                  hashEmail: { method: regexify, parameters: [ '[a-z0-9]{32}' ] }
                  hashFile: { method: regexify, parameters: [ '[a-z0-9]{32}' ] }
 

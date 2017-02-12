@@ -16,7 +16,7 @@ security:
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         secured_area:
-            pattern: ^/admin$
+            pattern: ^/list.*
             logout:
                 path: homepage
             security: true
@@ -40,4 +40,4 @@ security:
     access_control:
         - { path: ^/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # require ROLE_ADMIN for /admin*
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/list$, roles: ROLE_ADMIN }

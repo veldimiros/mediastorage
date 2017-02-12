@@ -49,7 +49,7 @@ class DefaultController extends Controller
 
             $content = [
                 'email' => $upload->getEmail(),
-                'link' => 'http://mediastorage.app/uploads/' . $hashEmail . '/' . $hashFile
+                'link' => $request->getUri() . $hashEmail . '/' . $hashFile
             ];
             $this->sendEmail($content);
 
