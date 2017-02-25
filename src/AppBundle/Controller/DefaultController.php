@@ -160,25 +160,16 @@ class DefaultController extends Controller
     }
 
     /**
-     * Sending Email.
+     * Send email to RabbitMQ 
      */
     private function sendEmail($content)
     {
         if (!$content) {
             return $this->redirectToRoute('homepage');
         }
-        $message = \Swift_Message::newInstance()
-                ->setSubject('Hello from mediastorage.app!')
-                ->setFrom('ms.app@example.com')
-                ->setTo($content['email'])
-                ->setBody(
-                $this->renderView(
-                        'AppBundle:File:email.html.twig', array('link' => $content['link'])
-                ), 'text/html'
-                )
-        ;
 
-        $this->get('mailer')->send($message);
+        $rabbit = $this->get('rabbit');
+        $rabbit->send($content);
     }
 
     /**

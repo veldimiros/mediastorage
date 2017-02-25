@@ -45,3 +45,6 @@
 # IDE
 nbproject/*
 .idea/*
+
+# Vagrant
+.vagrant/*

@@ -3,7 +3,7 @@
 {% block body %}
     <div id="wrapper">
         <div id="container">
-            <p class="h1">Uploads list</p>
+            <p class="h3">Uploads list</p>
             {# total items count #}
             <p class="label label-info"> Total: {{ pagination.getTotalItemCount }}
             </p>
@@ -13,7 +13,7 @@
                     <th>{{ knp_pagination_sortable(pagination, 'Id', 'f.id') }}</th>
                     <th>{{ knp_pagination_sortable(pagination, 'Info', 'f.info') }}</th>
                     <th>{{ knp_pagination_sortable(pagination, 'File', 'f.hashFile') }}</th>
-                    <th>Actions</th>
+                    <th>Action</th>
                 </tr>
 
                 {% for file in pagination %}
@@ -31,6 +31,11 @@
             <div class="navigation">
                 {{ knp_pagination_render(pagination) }}
             </div>
+            <p>
+                <a href="{{ path('homepage') }}">
+                    Return
+                </a>
+            </p>
         </div>
     </div>
 
