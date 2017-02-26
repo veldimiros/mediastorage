@@ -6,15 +6,26 @@ Mediastorage.app
 УСТАНОВКА
 ------------
 
-### Клонирование
+### 1. Клонирование
 
 studygit.simbirsoft1.com/supremo_raf/mediastorage.git
+для удобства переименовать папку в mediastorage
 
-### Установка Homestead
+### 2. Установка Homestead
 
 	vagrant box add laravel/homestead
+	
+### 3. Конфигурация Symfony приложения
 
-### Конфигурация Homestead
+	1) composer install
+	
+	2) установки в parameters.yml
+		bd: homestead
+		login: homestead
+		password: secret
+	остальное - по умолчанию
+		
+### 4. Конфигурация Homestead
 
 	1) Настройка Homestead.yaml: 
 	Указать путь до директории mediastorage
@@ -27,20 +38,11 @@ studygit.simbirsoft1.com/supremo_raf/mediastorage.git
 	  
 	3) Запуск сервера
 	vagrant up
-	
-### Конфигурация Symfony приложения
-
-	1) composer install
-	
-	2) parameters.yml
-	параметры подключения к бд:
-		bd: homestead
-		login: homestead
-		password: secret
 		
-### Конфигурация RabbitMQ
+### 5. Конфигурация RabbitMQ
 
 	1) запуск отправителя
+	cd Code/mediastorage
 	php bin/console queue declare
 	
 	2) запуск слушателя
@@ -50,9 +52,11 @@ studygit.simbirsoft1.com/supremo_raf/mediastorage.git
 		login: test
 		password: test
 	
+	4) пробуем загрузить файл на сервер
+	
 ### Дополнительно:
 
-	1) Доступ к таблице всех записей mediastorage/list
+	1) доступ к таблице всех записей mediastorage/list
 	Логин:	admin
 	Пароль: adminpass
 
@@ -63,3 +67,8 @@ studygit.simbirsoft1.com/supremo_raf/mediastorage.git
 	bazinga_faker:
 		...
 		number: ...
+		
+	3) возможная ошибка при отправке сообщений в Windows:
+	Connection could not be established with host smtp.gmail.com [ #0]
+	Препятствовал антивирус (в моем случае Avast)
+	
